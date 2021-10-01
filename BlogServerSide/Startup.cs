@@ -44,6 +44,7 @@ namespace BlogServerSide
             services.AddScoped<HttpClient>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddMudServices();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

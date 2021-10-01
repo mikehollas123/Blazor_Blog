@@ -67,17 +67,23 @@ namespace BlogServerSide.Pages
                         Email = email,
                         FirstName = firsName,
                         LastName = lastName,
-                        RegisteredAt = DateTime.Now
+                        RegisteredAt = DateTime.Now,
+                        Role = "User"
 
                     });
-                    context.SaveChanges();  
+                    context.SaveChanges();
+
+                    GoogleUser.AddClaim(new Claim(ClaimTypes.Role, "User"));
                 }
                 else
                 {
                     var user = context.Users.FirstOrDefault(x=>x.Id == id);
+                    GoogleUser.AddClaim(new Claim(ClaimTypes.Role, user.Role != null?user.Role:"Admin"));
                 }
 
             }
+
+
 
 
             if (GoogleUser.IsAuthenticated)
