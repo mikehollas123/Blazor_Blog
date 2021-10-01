@@ -1,0 +1,26 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<AuthorizeView>
+ <Authorized>
+        Hello, @context.User.Identity.Name!
+        @{
+            var claims = @context.User.Claims;
+            var name = @context.User.Identity.Name;
+            
+
+            foreach (var claim in claims)
+            {
+                <MudText>@claim.Type.Split('/').LastOrDefault() : @claim.Value</MudText><br />
+            }
+
+        }
+
+
+
+
+    </Authorized>
+</AuthorizeView>

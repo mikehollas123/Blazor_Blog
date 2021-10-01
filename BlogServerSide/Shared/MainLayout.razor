@@ -1,0 +1,52 @@
+﻿@using System.Security.Claims
+@inherits LayoutComponentBase
+@inject NavigationManager NavManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+            <AuthorizeView>
+                <NotAuthorized>
+                    <NavLink class="nav-link" href="Login" Match="NavLinkMatch.All">
+                        Login
+                    </NavLink>
+                </NotAuthorized>
+                <Authorized>
+                    @FirstName  @LastName
+                    <NavLink class="nav-link" href="Logout" Match="NavLinkMatch.All">
+                    logout
+                    </NavLink>
+                </Authorized>
+            </AuthorizeView>
+
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
+
+@code {
+         public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        private ClaimsPrincipal AuthenticationStateProviderUser { get; set; }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            AuthenticationState authenticationState;
+            authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+            this.AuthenticationStateProviderUser = authenticationState.User;
+            this.FirstName = this.AuthenticationStateProviderUser.FindFirst(c => c.Type == ClaimTypes.GivenName)?.Value;
+            this.LastName = this.AuthenticationStateProviderUser.FindFirst(c => c.Type == ClaimTypes.Surname)?.Value;
+        }
+}
