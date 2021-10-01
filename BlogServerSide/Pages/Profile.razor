@@ -1,4 +1,25 @@
 ﻿@page "/Profile"
-<h3>Profile</h3>
+[Authorized]
+
+<AuthorizeView>
+ <Authorized>
+        Hello, @context.User.Identity.Name!
+        @{
+            var claims = @context.User.Claims;
+            var name = @context.User.Identity.Name;
+            
+
+            foreach (var claim in claims)
+            {
+                <MudText>@claim.Type.Split('/').LastOrDefault() : @claim.Value</MudText><br />
+            }
+
+        }
+
+
+
+
+    </Authorized>
+</AuthorizeView>
 
 

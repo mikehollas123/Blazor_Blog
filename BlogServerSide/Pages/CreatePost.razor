@@ -1,0 +1,16 @@
+﻿@page "/CreatePost"
+@using BlogServerSide.DataBase
+
+<MudSelect T="Category" @bind-Value=@SelectedCategory>
+    @foreach (var category in Categories)
+    {
+         <MudSelectItem Value="@category" >@category.Title</MudSelectItem>
+    }
+   
+</MudSelect>
+
+<MudText>@SelectedCategory?.Title</MudText>
+
+
+
+
