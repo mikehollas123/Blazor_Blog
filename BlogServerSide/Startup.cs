@@ -1,20 +1,14 @@
-using BlogServerSide.Data;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using MudBlazor.Services;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace BlogServerSide
 {
@@ -33,7 +27,6 @@ namespace BlogServerSide
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();
             services.AddAuthentication().AddGoogle(options =>
@@ -50,6 +43,7 @@ namespace BlogServerSide
             services.AddHttpClient();
             services.AddScoped<HttpClient>();
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddMudServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
