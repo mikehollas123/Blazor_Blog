@@ -60,7 +60,7 @@
                   <Authorized>
 
         <MudNavLink Match="NavLinkMatch.All">Recents</MudNavLink>
-        <MudNavLink Match="NavLinkMatch.All">My Profile</MudNavLink>
+        <MudNavLink  Href="Profile" Match="NavLinkMatch.All">My Profile</MudNavLink>
         <MudNavGroup Title="Categories">
              <MudNavLink Match="NavLinkMatch.All">Blazor</MudNavLink>
             <MudNavLink Match="NavLinkMatch.All">Thrash</MudNavLink>
@@ -71,6 +71,13 @@
         
 
         </AuthorizeView>
+
+          <AuthorizeView Roles="Admin, content-editor">
+     
+             <MudNavLink Href="CreatePost" Match="NavLinkMatch.All">Create Post</MudNavLink>
+          
+  
+</AuthorizeView>
 
         <AuthorizeView Roles="Admin">
       <MudNavGroup Title="Admin">
