@@ -56,14 +56,14 @@ namespace BlogServerSide.DataBase
         public DateTime RegisteredAt { get; set; }
 
     public List<Post> Posts { get; set; }
-    public List<PostComment> Categories {  get;}
+    public List<PostComment> PostComments {  get;}
 
 }
 
     public class Post
     {   [Key]
         public Guid Id {  get; set; }
-        public string AuthorId { get; set; }
+        public User Author{ get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -70,6 +70,7 @@ namespace BlogServerSide.Pages
                         RegisteredAt = DateTime.Now,
                         Role = "User"
 
+
                     });
                     context.SaveChanges();
 

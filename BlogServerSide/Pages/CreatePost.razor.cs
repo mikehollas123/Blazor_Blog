@@ -17,6 +17,7 @@ using MudBlazor;
 using BlogServerSide.DataBase;
 using Microsoft.Extensions.Configuration;
 using BlogServerSide.Dialogs;
+using System.Security.Claims;
 
 namespace BlogServerSide.Pages
 {
@@ -28,16 +29,23 @@ namespace BlogServerSide.Pages
         [Inject]
         IDialogService DialogService { get; set; }
 
+        [Inject]
+        AuthenticationStateProvider AuthenticationStateProvider {  get; set; }
+
         public Post PostDraft { get; set; } = new Post();
 
         public Category SelectedCategory { get; set; }
         public List<Category> Categories { get; set; } = new List<Category>();
 
-        protected override void OnAfterRender(bool firstRender)
+        private string _userId;
+  
+        protected override async Task OnInitializedAsync()
         {
-            base.OnAfterRender(firstRender);
-      
+            base.OnInitialized();
             Categories = GetCategories();
+            var state =  await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+             _userId = state.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         }
 
 
@@ -66,9 +74,35 @@ namespace BlogServerSide.Pages
             } 
         }
 
-        private void AddPost()
+        private async void AddPost()
         {
             //add the post etc
+
+            using (var context = new BlogContext(Configuration))
+            {
+                context.Database.EnsureCreated();
+
+                PostDraft.Id = Guid.NewGuid();
+                PostDraft.CreatedAt = DateTime.Now;
+                PostDraft.Author = await GetUser(_userId);
+                PostDraft.Category = SelectedCategory;
+               
+
+
+                context.Posts.Add(PostDraft);
+                context.SaveChanges();
+            }
+        }
+        public async Task<User> GetUser(string userID)
+        {
+           return await Task.Run(() => 
+            { 
+             using (var context = new BlogContext(Configuration))
+            {
+                return context.Users.FirstOrDefault(x => x.Id == userID);
+            }
+            });
+           
         }
     }
 }
