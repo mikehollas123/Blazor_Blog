@@ -1,6 +1,7 @@
 ﻿@page "/CreatePost"
 @using BlogServerSide.DataBase
-
+<MudCard>
+    <MudCardContent>
 <MudSelect T="Category" @bind-Value=@SelectedCategory>
     @foreach (var category in Categories)
     {
@@ -8,8 +9,31 @@
     }
    
 </MudSelect>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton OnClick="OnCategoryAdd">Add Category</MudButton>
+    </MudCardActions>
+</MudCard>
 
-<MudText>@SelectedCategory?.Title</MudText>
+<MudCard>
+    <MudCardHeader>
+        <MudText Typo="Typo.h5">Post</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+            <MudTextField @bind-Value="@PostDraft.Title" Label="Title" />
+            <MudTextField @bind-Value="@PostDraft.Slug" Label="Slug" />
+            <MudTextField Lines="25" @bind-Value="@PostDraft.Content" Label="Content" />
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton OnClick="@AddPost">Create Post</MudButton>
+           <MudButton >Draft Post</MudButton>
+    </MudCardActions>
+
+</MudCard>
+
+
+
+
 
 
 

@@ -34,14 +34,11 @@ namespace BlogServerSide.DataBase
             
 
             modelBuilder.Entity<Post>().HasKey(t => t.Id);
-            modelBuilder.Entity<Post>().Property(t => t.Id).ValueGeneratedOnAdd();
-
+        
             modelBuilder.Entity<PostComment>().HasKey(t=> t.Id);
-            modelBuilder.Entity<PostComment>().Property(t => t.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<PostComment>().Property(t => t.CreatedAt).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Category>().HasKey(t=> t.Id);
-            modelBuilder.Entity<Category>().Property(t => t.Id).ValueGeneratedOnAdd();
+
         }
     }
 
@@ -80,7 +77,7 @@ namespace BlogServerSide.DataBase
 
     public class Category
     {   [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }
         public string Content { get; set; }

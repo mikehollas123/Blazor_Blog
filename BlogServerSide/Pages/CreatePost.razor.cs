@@ -16,6 +16,7 @@ using BlogServerSide.Shared;
 using MudBlazor;
 using BlogServerSide.DataBase;
 using Microsoft.Extensions.Configuration;
+using BlogServerSide.Dialogs;
 
 namespace BlogServerSide.Pages
 {
@@ -24,13 +25,33 @@ namespace BlogServerSide.Pages
         [Inject]
         public IConfiguration Configuration { get; set; }
 
+        [Inject]
+        IDialogService DialogService { get; set; }
+
+        public Post PostDraft { get; set; } = new Post();
+
         public Category SelectedCategory { get; set; }
         public List<Category> Categories { get; set; } = new List<Category>();
 
-        protected override void OnInitialized()
+        protected override void OnAfterRender(bool firstRender)
         {
-            base.OnInitialized();
+            base.OnAfterRender(firstRender);
+      
             Categories = GetCategories();
+        }
+
+
+        public async void OnCategoryAdd()
+        {
+            var dialog = DialogService.Show<AddCategoryDialog>("Add Category");
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                this.Categories = GetCategories();
+
+                this.SelectedCategory = result.Data as Category;
+            }
         }
 
         private List<Category> GetCategories()
@@ -40,27 +61,14 @@ namespace BlogServerSide.Pages
                 context.Database.EnsureCreated();
 
                 var categories = context.Categorys.ToList();
-                
-                return categories;
-            }
 
-            
+                return categories;
+            } 
         }
 
-        private void addCategory()
+        private void AddPost()
         {
-            using (var context = new BlogContext(Configuration))
-            {
-                context.Database.EnsureCreated();
-
-               context.Categorys.Add( new Category() { Title = "Blazor", Slug="blazor", Content="some stuff about blazor"});
-
-
-                context.SaveChanges();
-            }
-
-            this.Categories = GetCategories();
-
+            //add the post etc
         }
     }
 }

@@ -1,0 +1,19 @@
+﻿@using BlogServerSide.DataBase
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/>
+            Add Category
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField @bind-Value="@Category.Title" Label="title" />
+        <MudTextField Lines="5" @bind-Value="@Category.Content" Label="Content" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="AddCategory">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
