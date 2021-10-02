@@ -25,6 +25,24 @@ namespace BlogServerSide.DataBase
         {
             optionsBuilder.UseCosmos(Configuration.GetSection("ConnectionStrings:AccountEndpoint").Value, Configuration.GetSection("ConnectionStrings:database").Value);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().HasKey(t => t.Id);
+            
+
+            modelBuilder.Entity<Post>().HasKey(t => t.Id);
+            modelBuilder.Entity<Post>().Property(t => t.Id).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<PostComment>().HasKey(t=> t.Id);
+            modelBuilder.Entity<PostComment>().Property(t => t.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<PostComment>().Property(t => t.CreatedAt).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Category>().HasKey(t=> t.Id);
+            modelBuilder.Entity<Category>().Property(t => t.Id).ValueGeneratedOnAdd();
+        }
     }
 
     public class User
@@ -47,14 +65,13 @@ namespace BlogServerSide.DataBase
 
     public class Post
     {   [Key]
-        public int Id {  get; set; }
+        public Guid Id {  get; set; }
         public string AuthorId { get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public string Content { get; set; }
-    public int CategoryId { get; set; }
     public Category Category { get; set; }
 
     public List<PostComment> PostComments { get; set; } 
@@ -72,8 +89,7 @@ namespace BlogServerSide.DataBase
     }
     public class PostComment
     {
-        public int Id { get; set; }
-        public int PostId { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Content { get; set; }
