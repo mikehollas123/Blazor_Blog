@@ -14,19 +14,19 @@
         <MudTh>Number of Posts</MudTh>
     </HeaderContent>
      <RowTemplate>
-        <MudTd DataLabel="Id" >@context.Id</MudTd> 
+        <MudTd DataLabel="Id" >@context.id</MudTd> 
         <MudTd DataLabel="UserName">@context.UserName</MudTd>
         <MudTd DataLabel="FirstName">@context.FirstName</MudTd>
         <MudTd DataLabel="LastName">@context.LastName</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>   
         <MudTd DataLabel="Registered">@context.RegisteredAt</MudTd>
           <MudTd DataLabel="Role">@context.Role</MudTd>
-           <MudTd DataLabel="PostCount">@context.Posts?.Count</MudTd>
+         @*  <MudTd DataLabel="PostCount">@context.Posts?.Count</MudTd>*@
                  <MudTd><MudIconButton Icon=@Icons.Filled.Cancel OnClick=@(()=>OnDeleteClick(@context))/></MudTd>
         
     </RowTemplate>
         <RowEditingTemplate>
-       <MudTd DataLabel="Id" >@context.Id</MudTd> 
+       <MudTd DataLabel="Id" >@context.id</MudTd> 
      <MudTd DataLabel="UserName">
             <MudTextField @bind-Value="@context.UserName" />
         </MudTd>
@@ -37,7 +37,7 @@
         <MudTd DataLabel="Role">
             <MudTextField @bind-Value="@context.Role"  Required />
           
-           <MudTd DataLabel="PostCount">@context.Posts?.Count</MudTd>
+           @*<MudTd DataLabel="PostCount">@context.Posts?.Count</MudTd>*@
         </MudTd>
 
         <MudTh>Number of Posts</MudTh>

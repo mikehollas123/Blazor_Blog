@@ -50,7 +50,7 @@ namespace BlogServerSide.Pages
 
             using (var context = new BlogContext(Configuration))
             {
-                context.Database.EnsureCreated();
+              
 
                 var email = GoogleUser.Claims.First(c => c.Type == ClaimTypes.Email)?.Value;
                 var id = GoogleUser.Claims.First(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -59,11 +59,11 @@ namespace BlogServerSide.Pages
 
 
 
-                if (context.Users.Where(u => u.Id == id).Count() == 0)
+                if (context.Users.Where(u => u.id == id).Count() == 0)
                 {
                     context.Users.Add(new DataBase.User()
                     {
-                        Id = id,
+                        id = id,
                         Email = email,
                         FirstName = firsName,
                         LastName = lastName,
@@ -78,7 +78,7 @@ namespace BlogServerSide.Pages
                 }
                 else
                 {
-                    var user = context.Users.FirstOrDefault(x=>x.Id == id);
+                    var user = context.Users.FirstOrDefault(x=>x.id == id);
                     GoogleUser.AddClaim(new Claim(ClaimTypes.Role, user.Role != null?user.Role:"Admin"));
                 }
 

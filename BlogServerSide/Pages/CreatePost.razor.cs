@@ -66,7 +66,7 @@ namespace BlogServerSide.Pages
         {
             using (var context = new BlogContext(Configuration))
             {
-                context.Database.EnsureCreated();
+              
 
                 var categories = context.Categorys.ToList();
 
@@ -80,13 +80,13 @@ namespace BlogServerSide.Pages
 
             using (var context = new BlogContext(Configuration))
             {
-                context.Database.EnsureCreated();
-
-                PostDraft.Id = Guid.NewGuid();
+          
+                PostDraft.id = Guid.NewGuid().ToString();
                 PostDraft.CreatedAt = DateTime.Now;
-                PostDraft.Author = await GetUser(_userId);
-                PostDraft.Category = SelectedCategory;
-               
+                PostDraft.AuthorId = (await GetUser(_userId)).id;
+                PostDraft.CategoryId = SelectedCategory.id;
+           
+            
 
 
                 context.Posts.Add(PostDraft);
@@ -99,7 +99,7 @@ namespace BlogServerSide.Pages
             { 
              using (var context = new BlogContext(Configuration))
             {
-                return context.Users.FirstOrDefault(x => x.Id == userID);
+                return context.Users.FirstOrDefault(x => x.id == userID);
             }
             });
            

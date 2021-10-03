@@ -34,7 +34,7 @@ namespace BlogServerSide.Dialogs
             {
                 context.Database.EnsureCreated();
                 this.Category.Slug = RemoveWhitespace(this.Category.Title.ToLower());
-                this.Category.Id = new Guid(); ;
+                this.Category.id = Guid.NewGuid().ToString(); ;
                 context.Categorys.Add(Category);
                 context.SaveChanges();
             }

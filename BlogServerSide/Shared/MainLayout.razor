@@ -1,9 +1,12 @@
 ﻿@using System.Security.Claims
+@using BlogServerSide.DataBase
+@using Microsoft.Extensions.Configuration
 @using MudBlazor
 @using MudBlazor.Services
 @inherits LayoutComponentBase
 @inject NavigationManager NavManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IConfiguration Configuration
 
 <MudThemeProvider/>
 <MudDialogProvider/>
@@ -52,8 +55,12 @@
         <MudNavLink Match="NavLinkMatch.All">Recents</MudNavLink>
 
         <MudNavGroup Title="Categories">
-             <MudNavLink Match="NavLinkMatch.All">Blazor</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All">Thrash</MudNavLink>
+               @foreach (var cat in Categories)
+                        {
+                
+            <MudNavLink Match="NavLinkMatch.All" Href="@cat.Slug">@cat.Title</MudNavLink>
+
+                        }
         </MudNavGroup>
 
         </NotAuthorized>
@@ -62,8 +69,13 @@
         <MudNavLink Match="NavLinkMatch.All">Recents</MudNavLink>
         <MudNavLink  Href="Profile" Match="NavLinkMatch.All">My Profile</MudNavLink>
         <MudNavGroup Title="Categories">
-             <MudNavLink Match="NavLinkMatch.All">Blazor</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All">Thrash</MudNavLink>
+            @foreach (var cat in Categories)
+                        {
+                
+            <MudNavLink Match="NavLinkMatch.All" Href="@cat.Slug">@cat.Title</MudNavLink>
+
+                        }
+
         </MudNavGroup>
 
         </Authorized>
@@ -103,6 +115,10 @@
 
          public string? FirstName { get; set; }
         public string? LastName { get; set; }
+
+
+        public List<Category> Categories { get; set; }       
+
         private ClaimsPrincipal AuthenticationStateProviderUser { get; set; }
 
         protected override async Task OnParametersSetAsync()
@@ -113,8 +129,21 @@
             this.AuthenticationStateProviderUser = authenticationState.User;
             this.FirstName = this.AuthenticationStateProviderUser.FindFirst(c => c.Type == ClaimTypes.GivenName)?.Value;
             this.LastName = this.AuthenticationStateProviderUser.FindFirst(c => c.Type == ClaimTypes.Surname)?.Value;
-        }
 
+
+            Categories = GetCategories();
+        }
+             private List<Category> GetCategories()
+        {
+            using (var context = new BlogContext(Configuration))
+            {
+              
+
+                var categories = context.Categorys.ToList();
+
+                return categories;
+            } 
+        }
     public void MenuOpen()
     {
         sideMenuOpen = !sideMenuOpen;

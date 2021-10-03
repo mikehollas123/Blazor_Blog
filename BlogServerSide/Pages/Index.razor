@@ -1,7 +1,103 @@
 ﻿@page "/"
+@page "/{CatSlug}"
+@page "/{CatSlug}/{PostSlug}"
 
-<h1>Hello, world!</h1>
+@inject NavigationManager NavManager
 
-Welcome to your new app.
+@if (CatSlug == null)
+{
+    //Show Recent posts
+ @*   <MudGrid>
+        @foreach (var post in Posts)
+        {
+            var link = $"/{CatSlug}/{post.Slug}";
+            <MudItem xs="12" sm="6">
+                <MudCard>
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h3">@post.Title</MudText>
+                    </MudCardHeader>
+                    @if (@post.SplashImageURL == null)
+                    {
+                    <MudCardContent>
 
+                        <MudLink Href="@link"> @post.Title</MudLink>
+                    </MudCardContent>
+                    }
+                    else
+                    {
+                    <MudCardMedia Image=@post.SplashImageURL>
+
+                    </MudCardMedia>
+                    }
+
+                    <MudCardActions>
+                        <MudText Typo="Typo.h6" Align="Align.Right">@post.CreatedAt</MudText>
+
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+
+
+        }
+    </MudGrid>*@
+
+}
+else if (PostSlug == null)
+{
+    <MudText Typo="Typo.h3">@CatSlug</MudText>
+    <br />
+    //show all posts in this catefgory
+    <MudGrid>
+        @foreach (var post in Posts)
+        {
+            var link = $"/{CatSlug}/{post.Slug}";
+            <MudItem xs="12" sm="6">
+                <MudCard>
+                    <MudCardHeader>
+                         <MudLink Typo="Typo.h4" Href="@link"> @post.Title</MudLink>
+                       
+                    </MudCardHeader>
+                    @if (@post.SplashImageURL == null)
+                    {
+                    <MudCardMedia Image="\\SplashImages\\Blazor.png" >
+
+                    </MudCardMedia>
+                    }
+                    else
+                    {
+                    <MudCardMedia Image=@post.SplashImageURL>
+
+                    </MudCardMedia>
+                    }
+
+                    <MudCardActions>
+                        <MudText >@post.CreatedAt</MudText>
+
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+
+
+        }
+    </MudGrid>
+}
+else
+{
+    // Show single post
+
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h3">@Post.Title</MudText>
+            <MudDivider />
+            @Post.CreatedAt
+        </MudCardHeader>
+
+        <MudCardContent>
+            @{
+                MarkupString text = new MarkupString(Post.Content);
+            }
+            @text
+        </MudCardContent>
+    </MudCard>
+}
 
