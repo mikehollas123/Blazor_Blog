@@ -58,7 +58,7 @@
                @foreach (var cat in Categories)
                         {
                 
-            <MudNavLink Match="NavLinkMatch.All" Href="@cat.Slug">@cat.Title</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="@($"Posts/{@cat.Slug}")">@cat.Title</MudNavLink>
 
                         }
         </MudNavGroup>
@@ -72,7 +72,7 @@
             @foreach (var cat in Categories)
                         {
                 
-            <MudNavLink Match="NavLinkMatch.All" Href="@cat.Slug">@cat.Title</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="@($"Posts/{@cat.Slug}")">@cat.Title</MudNavLink>
 
                         }
 

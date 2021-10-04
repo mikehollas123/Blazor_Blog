@@ -1,6 +1,6 @@
 ﻿@page "/"
-@page "/{CatSlug}"
-@page "/{CatSlug}/{PostSlug}"
+@page "/Posts/{CatSlug}"
+@page "/Posts/{CatSlug}/{PostSlug}"
 
 @inject NavigationManager NavManager
 
@@ -50,8 +50,8 @@ else if (PostSlug == null)
     <MudGrid>
         @foreach (var post in Posts)
         {
-            var link = $"/{CatSlug}/{post.Slug}";
-            <MudItem xs="12" sm="6">
+            var link = $"Posts/{CatSlug}/{post.Slug}";
+            <MudItem xs="12" sm="6" lg="3" xl="3">
                 <MudCard>
                     <MudCardHeader>
                          <MudLink Typo="Typo.h4" Href="@link"> @post.Title</MudLink>
