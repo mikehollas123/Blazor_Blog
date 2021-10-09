@@ -52,13 +52,13 @@
              <AuthorizeView>
                 <NotAuthorized>
 
-        <MudNavLink Match="NavLinkMatch.All">Recents</MudNavLink>
+        <MudNavLink Match="NavLinkMatch.All" Href="/">Recents</MudNavLink>
 
         <MudNavGroup Title="Categories">
                @foreach (var cat in Categories)
                         {
                 
-            <MudNavLink Match="NavLinkMatch.All" Href="@($"Posts/{@cat.Slug}")">@cat.Title</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="@($"Category/{@cat.Slug}")">@cat.Title</MudNavLink>
 
                         }
         </MudNavGroup>
@@ -72,7 +72,7 @@
             @foreach (var cat in Categories)
                         {
                 
-            <MudNavLink Match="NavLinkMatch.All" Href="@($"Posts/{@cat.Slug}")">@cat.Title</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="@($"Category/{@cat.Slug}")">@cat.Title</MudNavLink>
 
                         }
 

@@ -1,13 +1,14 @@
-﻿@page "/"
+﻿
+@page "/Category/{CatSlug}"
+@using BlogServerSide.DataBase
+
+@inject ContextControllercs contextController
 
 
-@inject NavigationManager NavManager
+ <MudText Typo="Typo.h3">@CatSlug</MudText>
+    <br />
 
-
-
-
-
- <MudGrid>
+    <MudGrid>
         @foreach (var post in Posts)
         {
             var link = $"Posts/{post.Slug}";
@@ -19,7 +20,7 @@
                     </MudCardHeader>
                     @if (@post.SplashImageURL == null)
                     {
-                    <MudCardMedia Image="\\SplashImages\\Blazor.png" Style="height:contain" >
+                    <MudCardMedia Image="\\SplashImages\\Blazor.png" >
 
                     </MudCardMedia>
                     }
@@ -40,3 +41,28 @@
 
         }
     </MudGrid>
+
+@code {
+
+            [Parameter]
+        public string? CatSlug { get; set; }
+
+              public List<Post> Posts { get; set; }
+
+        public Category? Category { get; set; }
+
+                protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+
+         
+                Category = contextController.GetCategory(CatSlug);
+                Posts = contextController.GetPosts(Category.id);
+          
+
+
+
+        }
+
+}

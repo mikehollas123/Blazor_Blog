@@ -1,0 +1,23 @@
+﻿
+@page "/Posts/{PostSlug}"
+    @if(Post != null)
+{
+   <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h3">@Post.Title</MudText>
+            <MudDivider />
+            @Post.CreatedAt
+        </MudCardHeader>
+
+        <MudCardContent>
+            @{
+                MarkupString text = new MarkupString(Post.Content);
+            }
+            @text
+        </MudCardContent>
+    </MudCard> 
+}
+
+
+
+
