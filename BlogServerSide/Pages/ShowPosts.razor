@@ -10,10 +10,11 @@
         </MudCardHeader>
 
         <MudCardContent>
-            @{
-                MarkupString text = new MarkupString(Post.Content);
-            }
-            @text
+        
+                <BlogServerSide.Components.MarkDownViewer Content=@Post.Content></BlogServerSide.Components.MarkDownViewer>
+               
+      
+
         </MudCardContent>
     </MudCard> 
 }

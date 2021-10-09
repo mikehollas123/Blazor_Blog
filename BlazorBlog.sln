@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogServerSide", "BlogServerSide\BlogServerSide.csproj", "{1C217E2C-E56E-4EB9-8547-241F1DDEF1AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorBlog.ConsoleApp", "BlazorBlog.ConsoleApp\BlazorBlog.ConsoleApp.csproj", "{88990C12-CEF2-4C9C-BE8C-E576910F6233}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBlog.ConsoleApp", "BlazorBlog.ConsoleApp\BlazorBlog.ConsoleApp.csproj", "{88990C12-CEF2-4C9C-BE8C-E576910F6233}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -36,11 +36,7 @@ namespace BlogServerSide.Pages
         public Post Post { get; set; }
   
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
 
-        }
 
         protected override void OnParametersSet()
         {

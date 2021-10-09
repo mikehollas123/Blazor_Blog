@@ -26,6 +26,8 @@ namespace BlogServerSide.Pages
         [Inject]
         public IConfiguration Configuration { get; set; }
 
+        [Inject] NavigationManager  NavigationManager {  get; set; }
+
         [Inject]
         IDialogService DialogService { get; set; }
 
@@ -92,6 +94,9 @@ namespace BlogServerSide.Pages
                 context.Posts.Add(PostDraft);
                 context.SaveChanges();
             }
+
+
+            NavigationManager.NavigateTo("/");
         }
         public async Task<User> GetUser(string userID)
         {

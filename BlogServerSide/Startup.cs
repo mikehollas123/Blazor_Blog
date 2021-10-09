@@ -1,4 +1,5 @@
 
+using Ganss.XSS;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -44,7 +45,15 @@ namespace BlogServerSide
             services.AddScoped<HttpClient>();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddMudServices();
-            services.AddSingleton<ContextControllercs>();
+            services.AddScoped<ContextControllercs>();
+            services.AddScoped<IHtmlSanitizer, HtmlSanitizer>(x =>
+            {
+                // Configure sanitizer rules as needed here.
+                // For now, just use default rules + allow class attributes
+                var sanitizer = new Ganss.XSS.HtmlSanitizer();
+                sanitizer.AllowedAttributes.Add("class");
+                return sanitizer;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
