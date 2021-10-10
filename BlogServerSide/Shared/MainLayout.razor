@@ -19,6 +19,8 @@
                     <MudBlazor.MudAppBar Color="Color.Primary" Fixed=false>
                            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick=@MenuOpen/>
                             <MudSpacer />
+                            <MudText Typo="Typo.h5" >Hollas' Blazor Blog</MudText>
+                               <MudSpacer />
                             <NavLink class="nav-link" href="Login" Match="NavLinkMatch.All">
                         Login
                     </NavLink>
@@ -30,6 +32,9 @@
 
                        <MudBlazor.MudAppBar Color="Color.Primary" Fixed=false>
                            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick=@MenuOpen/>
+                           <MudSpacer/>
+
+                       <MudText Typo="Typo.h5"  >Hollas' Blazor Blog</MudText>
                            <MudSpacer />
                             @FirstName  @LastName
                     <NavLink class="nav-link" href="Logout" Match="NavLinkMatch.All">

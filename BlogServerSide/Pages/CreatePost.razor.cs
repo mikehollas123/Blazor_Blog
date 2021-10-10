@@ -18,6 +18,7 @@ using BlogServerSide.DataBase;
 using Microsoft.Extensions.Configuration;
 using BlogServerSide.Dialogs;
 using System.Security.Claims;
+using System.IO;
 
 namespace BlogServerSide.Pages
 {
@@ -40,7 +41,11 @@ namespace BlogServerSide.Pages
         public List<Category> Categories { get; set; } = new List<Category>();
 
         private string _userId;
-  
+
+
+        private List<IBrowserFile> loadedFiles = new();
+
+
         protected override async Task OnInitializedAsync()
         {
             base.OnInitialized();
@@ -50,6 +55,36 @@ namespace BlogServerSide.Pages
              _userId = state.User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         }
 
+        private async Task UploadFiles(InputFileChangeEventArgs e)
+        {
+            var file = e.File;
+            ////Do your validations here
+            //Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+            //Snackbar.Add($"Files with {entries.FirstOrDefault().Size} bytes size are not allowed", Severity.Error);
+            //Snackbar.Add($"Files starting with letter {entries.FirstOrDefault().Name.Substring(0, 1)} are not recommended", Severity.Warning);
+            //Snackbar.Add($"This file has the extension {entries.FirstOrDefault().Name.Split(".").Last()}", Severity.Info);
+
+                try
+                {
+                    loadedFiles.Add(file);
+
+                    var trustedFileNameForFileStorage = Path.GetRandomFileName();
+                    var path = Path.Combine(@"wwwroot\SplashImages",
+                            trustedFileNameForFileStorage + Path.GetExtension(file.Name));
+
+                    await using FileStream fs = new(path, FileMode.Create);
+                    await file.OpenReadStream().CopyToAsync(fs);
+
+                    Snackbar.Add($"Upload of {file.Name} Complete", Severity.Success);
+
+                   PostDraft.SplashImageURL = path;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception();
+                }
+            
+        }
 
         public async void OnCategoryAdd()
         {

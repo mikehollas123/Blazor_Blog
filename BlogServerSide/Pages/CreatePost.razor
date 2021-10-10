@@ -1,37 +1,81 @@
 ﻿@page "/CreatePost"
 @using BlogServerSide.DataBase
+
+
+@inject ISnackbar Snackbar
+<InputFile id="fileInput112" OnChange="UploadFiles" hidden accept=".jpg, .jpeg, .png" />
+
+<MudGrid>
+
+
+    @if (PostDraft.SplashImageURL != null)
+    {
+         <MudItem xs="12" sm="6" lg="3" xl="3">
+                <MudCard>
+                    <MudCardHeader>
+                         <MudLink Typo="Typo.h4" > @PostDraft.Title</MudLink>
+                       
+                    </MudCardHeader>
+                
+                    <MudCardMedia Image=@PostDraft.SplashImageURL >
+
+                    </MudCardMedia>
+                    </MudCard>
+                    </MudItem>  
+    }
+
+<MudItem sm=12 lg=12 xl=12 xxl=12 xs=12 md=12>
 <MudCard>
+    <MudCardHeader>
+               <MudText Typo="Typo.h5">Preview</MudText>
+    </MudCardHeader>
     <MudCardContent>
-<MudSelect T="Category" @bind-Value=@SelectedCategory>
+     <BlogServerSide.Components.MarkDownViewer Content=@PostDraft.Content></BlogServerSide.Components.MarkDownViewer>
+    </MudCardContent>
+    <MudCardActions>
+          <MudButton OnClick="@AddPost">Create Post</MudButton>
+    </MudCardActions>
+</MudCard>
+</MudItem>
+
+
+<MudItem sm=12 lg=12 xl=12 xxl=12 xs=12 md=12> 
+<MudCard>
+    <MudCardHeader>
+        <MudText Typo="Typo.h5">Post</MudText>
+    </MudCardHeader>   
+    <MudCardActions>
+      
+            <MudButton OnClick="OnCategoryAdd">Add Category</MudButton>
+
+            <MudButton HtmlTag="label"
+           Variant="Variant.Filled"
+           Color="Color.Primary"
+           StartIcon="@Icons.Filled.CloudUpload"
+           for="fileInput112">
+    Upload Splash Image
+</MudButton>
+
+    </MudCardActions>
+    <MudCardContent>
+        <MudSelect T="Category" @bind-Value=@SelectedCategory Label="Category">
     @foreach (var category in Categories)
     {
          <MudSelectItem Value="@category" >@category.Title</MudSelectItem>
     }
    
 </MudSelect>
-    </MudCardContent>
-    <MudCardActions>
-        <MudButton OnClick="OnCategoryAdd">Add Category</MudButton>
-    </MudCardActions>
-</MudCard>
-
-<MudCard>
-    <MudCardHeader>
-        <MudText Typo="Typo.h5">Post</MudText>
-    </MudCardHeader>
-    <MudCardContent>
             <MudTextField @bind-Value="@PostDraft.Title" Label="Title" />
             <MudTextField @bind-Value="@PostDraft.Slug" Label="Slug" />
             <MudTextField Lines="25" @bind-Value="@PostDraft.Content" Label="Content" />
     </MudCardContent>
-    <MudCardActions>
-        <MudButton OnClick="@AddPost">Create Post</MudButton>
-           <MudButton >Draft Post</MudButton>
-    </MudCardActions>
+
 
 </MudCard>
 
+</MudItem>
 
+</MudGrid>
 
 
 
