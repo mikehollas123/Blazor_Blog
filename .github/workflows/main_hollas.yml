@@ -46,12 +46,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'Hollas'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_25623EA86DB84505BD579071E9A1704E }}
-          package: .
+          
+      - name: Deploy to IIS
+        run: |
+         iisreset /stop
+          Copy-Item .net-app C:/inetpub/wwwroot/blog.mhollas.com -Recurse -Force
+          iisreset /start
