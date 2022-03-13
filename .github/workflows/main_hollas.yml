@@ -50,5 +50,5 @@ jobs:
       - name: Deploy to IIS
         run: |
          iisreset /stop
-          Copy-Item .net-app C:/inetpub/wwwroot/blog.mhollas.com -Recurse -Force
+          Copy-Item BlogServerSide C:/inetpub/wwwroot/blog.mhollas.com -Recurse -Force
           iisreset /start
