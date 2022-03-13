@@ -23,27 +23,15 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release .\BlogServerSide
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: blogApp
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:         
+        run: dotnet publish -c Release -o BlogServerSide .\BlogServerSide
+        
       - name: Deploy to IIS
         run: |
          iisreset /stop
-          Copy-Item C:\Users\holla\AppData\Local\Microsoft\dotnet\myapp C:/inetpub/wwwroot/blog -Recurse -Force
+          Copy-Item ./BlogServerSide/* C:/inetpub/wwwroot/blog -Recurse -Force
           iisreset /start
+
+
