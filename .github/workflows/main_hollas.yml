@@ -45,5 +45,5 @@ jobs:
       - name: Deploy to IIS
         run: |
          iisreset /stop
-          Copy-Item ${{env.DOTNET_ROOT}}/myapp C:/inetpub/wwwroot/blog -Recurse -Force
+          Copy-Item C:\Users\holla\AppData\Local\Microsoft\dotnet\myapp C:/inetpub/wwwroot/blog -Recurse -Force
           iisreset /start
