@@ -45,5 +45,5 @@ jobs:
       - name: Deploy to IIS
         run: |
          iisreset /stop
-          Copy-Item blogApp C:/inetpub/wwwroot/blog -Recurse -Force
+          Copy-Item ./Blazor_Blog/* C:/inetpub/wwwroot/blog -Recurse -Force
           iisreset /start
