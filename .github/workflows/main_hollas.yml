@@ -45,10 +45,10 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: .net-app
+          name: blogApp
           
       - name: Deploy to IIS
         run: |
          iisreset /stop
-          Copy-Item .net-app C:/inetpub/wwwroot/blog.mhollas.com -Recurse -Force
+          Copy-Item blogApp C:/inetpub/wwwroot/blog -Recurse -Force
           iisreset /start
