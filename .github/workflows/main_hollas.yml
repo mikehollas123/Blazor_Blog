@@ -11,8 +11,8 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
-
+    runs-on: self-hosted
+    
     steps:
       - uses: actions/checkout@v2
 
@@ -50,5 +50,5 @@ jobs:
       - name: Deploy to IIS
         run: |
          iisreset /stop
-          Copy-Item BlogServerSide C:/inetpub/wwwroot/blog.mhollas.com -Recurse -Force
+          Copy-Item .net-app C:/inetpub/wwwroot/blog.mhollas.com -Recurse -Force
           iisreset /start
