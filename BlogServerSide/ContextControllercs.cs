@@ -11,6 +11,7 @@ namespace BlogServerSide
         public ContextControllercs(IConfiguration configuration)
         {
             Configuration = configuration;
+    
         }
 
 
@@ -20,7 +21,7 @@ namespace BlogServerSide
         {
             using (var context = new BlogContext(Configuration))
             {
-
+                context.Database.EnsureCreated();
 
                 var categories = context.Categorys.Where(x => x.Slug == catSlug).First();
 

@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace BlogServerSide.DataBase
 {
 
     public class BlogContext : DbContext
     {
+        private const string localSqlLiteFile = "DataBase\\Blog.db";
+
+
         public BlogContext(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,7 +26,9 @@ namespace BlogServerSide.DataBase
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseCosmos(Configuration.GetSection("ConnectionStrings:AccountEndpoint").Value, Configuration.GetSection("ConnectionStrings:database").Value);
+            optionsBuilder.UseSqlite($"Data Source={localSqlLiteFile}");
+
+           // optionsBuilder.UseCosmos(Configuration.GetSection("ConnectionStrings:AccountEndpoint").Value, Configuration.GetSection("ConnectionStrings:database").Value);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
