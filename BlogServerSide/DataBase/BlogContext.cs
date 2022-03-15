@@ -58,7 +58,6 @@ namespace BlogServerSide.DataBase
                 Email = "hollas@gmail.com",
                 RegisteredAt = DateTime.Now,
                 Role = "Admin"
-
             });
 
         }

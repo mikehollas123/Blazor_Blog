@@ -1,5 +1,6 @@
 ﻿using BlogServerSide.DataBase;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,10 @@ namespace BlogServerSide
         public ContextControllercs(IConfiguration configuration)
         {
             Configuration = configuration;
-    
+            using (var context = new BlogContext(Configuration))
+            {
+                context.Database.Migrate()
+            }
         }
 
 
@@ -21,7 +25,7 @@ namespace BlogServerSide
         {
             using (var context = new BlogContext(Configuration))
             {
-                context.Database.EnsureCreated();
+           
 
                 var categories = context.Categorys.Where(x => x.Slug == catSlug).First();
 
