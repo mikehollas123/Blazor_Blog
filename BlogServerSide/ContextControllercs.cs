@@ -25,7 +25,7 @@ namespace BlogServerSide
         {
             using (var context = new BlogContext(Configuration))
             {
-           
+                context.Database.Migrate();
 
                 var categories = context.Categorys.Where(x => x.Slug == catSlug).First();
 
