@@ -14,7 +14,7 @@ namespace BlogServerSide
             Configuration = configuration;
             using (var context = new BlogContext(Configuration))
             {
-                context.Database.Migrate()
+                context.Database.Migrate();
             }
         }
 
